@@ -1,0 +1,20 @@
+<html>
+	<head><title>Link Test</title></head>
+		<body>
+			<a id="mylink" href="http://mysite.com">Click me</a><br>
+			<script>
+				//the IE version: using DOM to get the link coded above
+				url = document.getElementById('mylink').href;
+				document.write('The URL is: ' + url + "<br>");
+
+				//testing the with statement
+				string = "How much wood would a woodchuck chuck if a woodchuck could chuck wood";
+				with (string)
+				{
+					document.write("the string is " + length + " characters<br>");
+					document.write("In upper case it's " + toUpperCase());
+				}
+			</script>
+		</body>
+
+</html>

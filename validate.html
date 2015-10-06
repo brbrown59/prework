@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>An Example Form</title>
+		<!--CSS stuff -->
+		<style>
+			.signup {
+				border:1px solid #999999;
+				font: normal 14px helvetica;
+				color: #444444;
+			}
+		</style>
+		<script>
+			//function that calls functions to validate all of the entries
+			function validate(form)
+			{
+				fail = validateForename(form.forename.value);
+				fail += validateSurname(form.surname.value);
+				fail += validateUsername(form.username.value);
+				fail += validatePassword(form.password.value);
+				fail += validateAge(form.age.value);
+				fail += validateEmail(form.email.value);
+				if (fail == "") return true;
+				else
+				{
+					alert(fail);
+					return false;
+				}
+			}
+			//the actual validation functions
+			function validateForename(field)
+			{
+				return (field == "") ? "No Forename was entered.\n" : "";
+			}
+			function validateSurname(field)
+			{
+				return (field == "") ? "No Surname was entered.\n" : "";
+			}
+			function validateUsername(field)
+			{
+				if (field == "")
+					return "No Username was entered\n";
+				else if (field.length < 5)
+					return "Username must be at least five characters\n";
+				else if (/[^a-zA-Z0-9_-]/.test(field))
+					return "Only a-z, A-Z, 0-9, - and _ allowed in Usernames\n";
+				return "";
+			}
+			function validatePassword(field)
+			{
+				if (field == "")
+					return "No password was entered\n";
+				else if (field.length < 6)
+					return "Passwords must be at least six characters\n";
+				else if (!/[a-z]/.test(field) || !/[A-Z]/.test(field) || !/[0-9]/.test(field))
+					return "Passwords require lowercase, uppercase, and numbers\n";
+				return "";
+			}
+			function validateAge(field)
+			{
+				if (field == "" || isNaN(field))
+					return "No Age was entered\n";
+				else if (field < 18 || field > 110)
+					return "Age must be between 18 and 110\n";
+				return "";
+			}
+			function validateEmail(field)
+			{
+				if (field == "")
+					return "No email was entered\n";
+				else if (!((field.indexOf(".") > 0) &&
+					(field.indexOf("@") > 0)) ||
+					/[^a-zA-Z0-9/.@_-]/.test(field))
+					return "The email is invalid\n";
+				return "";
+			}
+		</script>
+	</head>
+	<!--creates the form for accepting input-->
+	<body>
+		<table class="signup" border="0" cellpadding="2" cellspacing="5" bgcolor="#eeeeee">
+			<th colspan="2" align="center">Signup Form</th>
+			<!-- onSubmit calls validate function upon submission of form-->
+			<form method="post" action="adduser.php" onSubmit="return validate(this)">
+				<tr><td>Forename</td>
+					<td><input type="text" maxlength="32" name="forename"></td></tr>
+				<tr><td>Surname</td>
+					<td><input type="text" maxlength="32" name="surname"></td></tr>
+				<tr><td>Username</td>
+					<td><input type="text" maxlength="16" name="username"></td></tr>
+				<tr><td>Password</td>
+					<td><input type="text" maxlength="12" name="password"></td></tr>
+				<tr><td>Age</td>
+					<td><input type="text" maxlength="3" name="age"></td></tr>
+				<tr><td>Email</td>
+					<td><input type="text" maxlength="64" name="email"></td></tr>
+				<tr><td colspan="2" align="center">
+					<input type="submit" value = "Signup"></td></tr>
+			</form>
+		</table>
+	</body>
+</html>
