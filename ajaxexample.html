@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+
+<!--setting up the html document-->
+<html>
+	<head>
+		<title>AJAX Example</title>
+	</head>
+	<body style ='text-align:center'>
+		<h1>Loading a web page into a DIV</h1>
+		<!--note the div id is "info-->
+		<div id='info'>This sentence will be replaced</div>
+		<script>
+			//creates request for ajax object
+			params = "url-amazon.com/gp/aw";
+			request = new ajaxRequest();
+
+			//sets php code to request
+			request.open("POST", "urlpost.php", true);
+
+			//set up headers for receiving server
+			request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			request.setRequestHeader("Content-length", params.length);
+			request.setRequestHeader("Connection", "close");
+
+
+
+
+			//check for when the ready state changes
+			request.onreadystatechange = function()
+			{
+				if (this.readyState == 4) //value of four = a completed ajax call
+				{
+					if (this.status == 200) //value of 200 = call was successful
+					{
+						if (this.responseText != null) //test if there's a value
+						{
+							//if there is, change the content of the div above
+							//identified by assigned ID "info"
+							document.getElementById('info').innerHTML = this.responseText;
+
+						}
+						else alert("Ajax error: no data recieved")
+					}
+					else alert("Ajax error: " + this.statusText)
+				}
+			}
+
+			//sends request with URL to server
+			request.send(params);
+
+			//ajax requests to ensure it works on all browsers
+			function ajaxRequest()
+			{
+				try
+				{
+					var request = new XMLHttpRequest()
+				}
+				catch(e1)
+				{
+					try
+					{
+						request = new ActiveXObject("Msxml2.XMLHTTP")
+					}
+					catch(e2)
+					{
+						try
+						{
+							request = new ActiveXObject("Microsoft.XMLHTTP")
+						}
+						catch(e3)
+						{
+							request = false
+						}
+					}
+				}
+				return request
+			}
+
+		</script>
+	</body>
+</html>
